@@ -1,0 +1,287 @@
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+body {
+  /* 3. Add accessible line-height */
+  line-height: 1.5;
+  /* 4. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 5. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+}
+
+/* 6. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 7. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* 8. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/* 9. Create a root stacking context */
+#root,
+#__next {
+  isolation: isolate;
+}
+
+.js main,
+.js .site-attribution {
+  display: block;
+}
+.js noscript {
+  display: none;
+}
+
+.no-js main,
+.no-js .site-attribution {
+  display: none;
+}
+.no-js noscript {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: "Work Sans", sans-serif;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+body {
+  font-family: "Work Sans", sans-serif;
+  font-size: 1rem;
+  background-color: hsl(275, 100%, 97%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  margin: 0 auto;
+  position: relative;
+}
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100%;
+  max-height: 14.375rem;
+  background-size: cover;
+  background-image: url("../../public/assets/images/background-pattern-mobile.svg");
+  background-repeat: no-repeat;
+  background-position: top center;
+  z-index: -1;
+}
+
+main {
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 1rem;
+  padding: 0 2rem;
+  margin-top: 8.875rem;
+  max-width: 37.5rem;
+  width: 100%;
+  box-shadow: 0 0.625rem 1.875rem rgba(0, 0, 0, 0.1);
+}
+
+.accordion-container {
+  margin-bottom: 1.75rem;
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.875rem;
+  margin-bottom: 1.75rem;
+}
+
+.icon-star {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.accordion-title {
+  color: hsl(292, 42%, 14%);
+  line-height: 1;
+  font-weight: 700;
+  font-size: 1.6875rem;
+}
+
+.accordion-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: inherit;
+  border: none;
+  width: 100%;
+  padding: 0;
+  font-family: inherit;
+  padding-bottom: 1.5rem;
+}
+.accordion-item-header:focus-visible {
+  outline: 0.125rem solid hsl(292, 42%, 14%);
+  outline-offset: 0.125rem;
+  border-radius: 0.25rem;
+}
+.accordion-item-header:focus, .accordion-item-header:active {
+  background-color: transparent;
+}
+.accordion-item-header .accordion-toggle-icon {
+  transform: rotate(0deg);
+}
+
+.accordion-item-heading {
+  color: hsl(292, 42%, 14%);
+  font-weight: 600;
+  line-height: 1.2;
+  font-size: 1rem;
+  text-align: left;
+  font-size: 1rem;
+}
+.accordion-item-heading:hover {
+  color: hsl(290, 80%, 53%);
+}
+
+.accordion-content {
+  color: hsl(292, 16%, 49%);
+  line-height: 1.6;
+  transition: visibility 0s, opacity 0.3s ease;
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.accordion-item {
+  border-bottom: 1px solid hsl(275, 100%, 97%);
+  padding-top: 1.5rem;
+}
+.accordion-item:first-child {
+  padding-top: 0;
+}
+.accordion-item:last-child {
+  border-bottom: none;
+}
+.accordion-item.active .accordion-toggle-icon {
+  transform: rotate(-180deg);
+}
+.accordion-item.active .accordion-content {
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .accordion-item-header .icon {
+    transition: transform 0.3s ease;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .accordion-item-header .icon {
+    transition: none;
+  }
+}
+.site-attribution {
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  text-align: center;
+  color: hsl(292, 16%, 49%);
+}
+.site-attribution a {
+  color: hsl(292, 42%, 14%);
+  text-decoration: none;
+}
+.site-attribution a:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  body::before {
+    background-image: url("../../public/assets/images/background-pattern-desktop.svg");
+    max-height: 21.125rem;
+  }
+  main {
+    margin-top: 10.25rem;
+  }
+  .accordion-container {
+    margin-bottom: 2.75rem;
+  }
+  .accordion-title {
+    font-size: 3.125rem;
+  }
+  .accordion-header {
+    margin-top: 3.0625rem;
+    margin-bottom: 2.5rem;
+    gap: 1.5rem;
+  }
+  .icon-star {
+    width: initial;
+    height: initial;
+  }
+  .accordion-item {
+    padding-top: 2rem;
+  }
+  .accordion-content {
+    font-size: 1rem;
+  }
+  .accordion-item.active .accordion-content {
+    margin-bottom: 2rem;
+  }
+  .accordion-item-header {
+    padding-bottom: 2rem;
+  }
+  .accordion-item-header:last-child {
+    padding-bottom: 0;
+  }
+  .accordion-item-heading {
+    font-size: 1.125rem;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
