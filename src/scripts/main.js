@@ -1,9 +1,8 @@
-import '../styles/style.css';
 import {
   getElement,
   getElements,
   addEventListenerWithErrorHandling,
-} from './utils';
+} from './utils.js';
 
 try {
   const accordion = getElement('.accordion');

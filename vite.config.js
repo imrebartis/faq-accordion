@@ -2,9 +2,24 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   base: '/faq-accordion/',
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ['./test/setup.js'],
+  build: {
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          if (
+            assetInfo.name.endsWith('.css') ||
+            assetInfo.name.endsWith('.css.map')
+          ) {
+            return 'assets/styles/[name][extname]';
+          }
+          return 'assets/[name][extname]';
+        },
+        entryFileNames: 'assets/js/[name].js',
+      },
+    },
+  },
+  css: {
+    devSourcemap: true,
   },
 });
