@@ -1,4 +1,0 @@
-// Function for rem calculations
-@function rem($value) {
-  @return math.div($value, $base-font-size) * $rem-base;
-}
