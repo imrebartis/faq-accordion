@@ -115,6 +115,7 @@ body::before {
   z-index: -1;
 }
 
+/* stylelint-disable no-descending-specificity */
 main {
   background-color: hsl(0, 0%, 100%);
   border-radius: 1rem;
@@ -125,6 +126,7 @@ main {
   box-shadow: 0 0.625rem 1.875rem rgba(0, 0, 0, 0.1);
 }
 
+/* stylelint-enable */
 .accordion-container {
   margin-bottom: 1.75rem;
 }
@@ -177,7 +179,6 @@ main {
   color: hsl(292, 42%, 14%);
   font-weight: 600;
   line-height: 1.2;
-  font-size: 1rem;
   text-align: left;
   font-size: 1rem;
 }
@@ -227,6 +228,7 @@ main {
     transition: none;
   }
 }
+/* stylelint-disable no-descending-specificity */
 .site-attribution {
   margin-top: 2rem;
   font-size: 0.875rem;
@@ -241,6 +243,7 @@ main {
   text-decoration: underline;
 }
 
+/* stylelint-enable */
 @media (min-width: 768px) {
   body::before {
     background-image: url("../../public/assets/images/background-pattern-desktop.svg");

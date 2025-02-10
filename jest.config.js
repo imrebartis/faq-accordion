@@ -10,4 +10,7 @@ export default {
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': '<rootDir>/src/styleMock.js',
   },
+  testMatch: ['**/*.test.js'],
+  moduleFileExtensions: ['js', 'json', 'node'],
+  transformIgnorePatterns: ['/node_modules/', '\\.pnp\\.[^\\/]+$'],
 };

@@ -30,6 +30,7 @@
     text-align: center;
   }
 }
+
 body {
   font-family: $font-family;
   font-size: rem($base-font-size);
@@ -59,6 +60,7 @@ body {
   }
 }
 
+/* stylelint-disable no-descending-specificity */
 main {
   background-color: $color-white;
   border-radius: $rem-base;
@@ -68,6 +70,7 @@ main {
   width: 100%;
   box-shadow: 0 rem(10px) rem(30px) rgb(0 0 0 / 10%);
 }
+/* stylelint-enable */
 
 .accordion-container {
   margin-bottom: rem(28px);
@@ -125,7 +128,6 @@ main {
   color: $color-dark-purple;
   font-weight: 600;
   line-height: 1.2;
-  font-size: $rem-base;
   text-align: left;
   font-size: rem($base-font-size);
 
@@ -186,6 +188,7 @@ main {
   }
 }
 
+/* stylelint-disable no-descending-specificity */
 .site-attribution {
   margin-top: rem(32px);
   font-size: rem(14px);
@@ -201,6 +204,7 @@ main {
     }
   }
 }
+/* stylelint-enable */
 
 @media (min-width: $tablet-width) {
   body::before {

@@ -1,5 +1,6 @@
 import { fireEvent } from '@testing-library/dom';
 import '@testing-library/jest-dom';
+import { jest } from '@jest/globals';
 
 describe('FAQ Accordion', () => {
   const setupDOM = () => {
@@ -28,11 +29,11 @@ describe('FAQ Accordion', () => {
         `;
   };
 
-  beforeEach(() => {
+  beforeEach(async () => {
     document.body.innerHTML = '';
     jest.resetModules();
     setupDOM();
-    require('./main');
+    await import('./main.js');
   });
 
   afterEach(() => {
