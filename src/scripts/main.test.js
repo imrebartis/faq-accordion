@@ -1,3 +1,5 @@
+'use strict';
+
 import { fireEvent } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 import { jest } from '@jest/globals';
