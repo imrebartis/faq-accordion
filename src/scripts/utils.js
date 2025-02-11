@@ -1,4 +1,5 @@
 'use strict';
+
 export function getElement(selector, parent = document) {
   const element = parent.querySelector(selector);
   if (!element) {

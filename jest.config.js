@@ -2,6 +2,7 @@ export default {
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.(js|jsx)$': ['babel-jest', { configFile: './babel.config.js' }],
+    '^.+\\.svg$': '<rootDir>/src/svgTransform.js',
   },
   testEnvironmentOptions: {
     url: 'http://localhost',
@@ -11,6 +12,6 @@ export default {
     '\\.(css|less|scss|sass)$': '<rootDir>/src/styleMock.js',
   },
   testMatch: ['**/*.test.js'],
-  moduleFileExtensions: ['js', 'json', 'node'],
+  moduleFileExtensions: ['js', 'json', 'node', 'svg'],
   transformIgnorePatterns: ['/node_modules/', '\\.pnp\\.[^\\/]+$'],
 };

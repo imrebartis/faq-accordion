@@ -7,28 +7,28 @@ import { jest } from '@jest/globals';
 describe('FAQ Accordion', () => {
   const setupDOM = () => {
     document.body.innerHTML = `
-          <main>
-            <h1>FAQs</h1>
-            <article class="accordion-container">
-              <div class="accordion">
-                <div class="accordion-item">
-                  <button class="accordion-item-header" id="item1-header" aria-expanded="false" aria-controls="item1-content">
-                    <h2>What is Frontend Mentor?</h2>
-                    <img src="./public/assets/images/icon-plus.svg" class="accordion-toggle-icon" aria-hidden="true" alt="">
-                  </button>
-                  <p class="accordion-content" id="item1-content" aria-labelledby="item1-header" aria-hidden="true">Frontend Mentor offers realistic coding challenges to help developers improve their frontend coding skills with projects in HTML, CSS, and JavaScript.</p>
-                </div>
-                <div class="accordion-item">
-                  <button class="accordion-item-header" id="item2-header" aria-expanded="false" aria-controls="item2-content">
-                    <h2>Is Frontend Mentor free?</h2>
-                    <img src="./public/assets/images/icon-plus.svg" class="accordion-toggle-icon" aria-hidden="true" alt="">
-                  </button>
-                  <p class="accordion-content" id="item2-content" aria-labelledby="item2-header" aria-hidden="true">Yes, Frontend Mentor offers both free and premium coding challenges, with the free option providing access to a range of projects suitable for all skill levels.</p>
-                </div>
-              </div>
-            </article>
-          </main>
-        `;
+      <main>
+        <h1>FAQs</h1>
+        <article class="accordion-container">
+          <div class="accordion">
+            <div class="accordion-item">
+              <button class="accordion-item-header" id="item1-header" aria-expanded="false" aria-controls="item1-content">
+                <h2>What is Frontend Mentor?</h2>
+                <img src="src/assets/images/icon-plus.svg" class="accordion-toggle-icon" aria-hidden="true" alt="">
+              </button>
+              <p class="accordion-content" id="item1-content" aria-labelledby="item1-header" aria-hidden="true">Frontend Mentor offers realistic coding challenges to help developers improve their frontend coding skills with projects in HTML, CSS, and JavaScript.</p>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-item-header" id="item2-header" aria-expanded="false" aria-controls="item2-content">
+                <h2>Is Frontend Mentor free?</h2>
+                <img src="src/assets/images/icon-plus.svg" class="accordion-toggle-icon" aria-hidden="true" alt="">
+              </button>
+              <p class="accordion-content" id="item2-content" aria-labelledby="item2-header" aria-hidden="true">Yes, Frontend Mentor offers both free and premium coding challenges, with the free option providing access to a range of projects suitable for all skill levels.</p>
+            </div>
+          </div>
+        </article>
+      </main>
+    `;
   };
 
   beforeEach(async () => {
@@ -59,14 +59,14 @@ describe('FAQ Accordion', () => {
   test('icon should change when toggling accordion', () => {
     const header = document.querySelector('.accordion-item-header');
     const icon = header.querySelector('.accordion-toggle-icon');
-    const originalSrc = icon.src;
+
+    expect(icon.getAttribute('src')).toMatch(/icon-plus\.svg$/);
 
     fireEvent.click(header);
-    expect(icon.src).not.toBe(originalSrc);
-    expect(icon.src).toContain('icon-minus.svg');
+    expect(icon.getAttribute('src')).toMatch(/icon-minus\.svg$/);
 
     fireEvent.click(header);
-    expect(icon.src).toBe(originalSrc);
+    expect(icon.getAttribute('src')).toMatch(/icon-plus\.svg$/);
   });
 
   test('only one accordion item should be open at a time', () => {

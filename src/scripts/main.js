@@ -20,6 +20,15 @@ try {
 
   const headerKeydownHandlers = new Map();
 
+  const PLUS_ICON_URL = new URL(
+    '../assets/images/icon-plus.svg',
+    import.meta.url
+  ).href;
+  const MINUS_ICON_URL = new URL(
+    '../assets/images/icon-minus.svg',
+    import.meta.url
+  ).href;
+
   accordionHeaders.forEach((header) => {
     header.setAttribute('aria-expanded', 'false');
 
@@ -69,20 +78,28 @@ try {
 
     accordionHeaders.forEach((otherHeader) => {
       const otherItem = otherHeader.closest('.accordion-item');
-      otherItem.classList.remove('active');
-      otherHeader.setAttribute('aria-expanded', false);
-      otherItem
-        .querySelector('.accordion-content')
-        .setAttribute('aria-hidden', true);
-      otherItem.querySelector('.accordion-toggle-icon').src =
-        './public/assets/images/icon-plus.svg';
+      if (otherItem !== itemToActivate) {
+        otherItem.classList.remove('active');
+        otherHeader.setAttribute('aria-expanded', 'false');
+        otherItem
+          .querySelector('.accordion-content')
+          .setAttribute('aria-hidden', 'true');
+        otherItem
+          .querySelector('.accordion-toggle-icon')
+          .setAttribute('src', PLUS_ICON_URL);
+      }
     });
 
     if (isExpanding) {
       itemToActivate.classList.add('active');
-      header.setAttribute('aria-expanded', true);
-      content.setAttribute('aria-hidden', false);
-      img.src = './public/assets/images/icon-minus.svg';
+      header.setAttribute('aria-expanded', 'true');
+      content.setAttribute('aria-hidden', 'false');
+      img.setAttribute('src', MINUS_ICON_URL);
+    } else {
+      itemToActivate.classList.remove('active');
+      header.setAttribute('aria-expanded', 'false');
+      content.setAttribute('aria-hidden', 'true');
+      img.setAttribute('src', PLUS_ICON_URL);
     }
   }
 
