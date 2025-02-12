@@ -114,7 +114,7 @@ try {
     headerKeydownHandlers.clear();
   };
 
-  window.addEventListener('unload', cleanup);
+  window.addEventListener('beforeunload', cleanup);
 } catch (error) {
   console.error('Failed to initialize accordion:', error);
 }
