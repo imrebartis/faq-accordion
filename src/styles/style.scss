@@ -139,9 +139,6 @@ main {
 .accordion-content {
   color: variables.$color-grayish-purple;
   line-height: 1.6;
-  transition:
-    visibility 0s,
-    opacity 0.3s ease;
   visibility: hidden;
   opacity: 0;
   height: 0;
@@ -177,13 +174,24 @@ main {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .accordion-item-header .icon {
+  .accordion-item-header .accordion-toggle-icon {
     transition: transform 0.3s ease;
+  }
+
+  .accordion-content {
+    transition:
+      visibility 0.4s ease,
+      opacity 0.4s ease,
+      height 0.4s ease;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .accordion-item-header .icon {
+  .accordion-item-header .accordion-toggle-icon {
+    transition: none;
+  }
+
+  .accordion-content {
     transition: none;
   }
 }
