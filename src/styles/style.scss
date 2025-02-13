@@ -22,25 +22,25 @@
 
   noscript {
     display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    font-family: variables.$font-family;
     padding: utils.rem(24px);
     text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-family: variables.$font-family;
   }
 }
 
 body {
-  font-family: variables.$font-family;
-  font-size: utils.rem(variables.$base-font-size);
-  background-color: variables.$color-light-pink;
   min-height: 100vh;
+  margin: 0 auto;
+  padding: utils.rem(24px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: utils.rem(24px);
-  margin: 0 auto;
+  font-family: variables.$font-family;
+  font-size: utils.rem(variables.$base-font-size);
+  background-color: variables.$color-light-pink;
   position: relative;
 
   &::before {
@@ -48,40 +48,47 @@ body {
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translateX(-50%);
+    z-index: -1;
     width: 100vw;
     height: 100%;
     max-height: utils.rem(230px);
-    background-size: cover;
-    background-image: url('../assets/images/background-pattern-mobile.svg');
-    background-repeat: no-repeat;
-    background-position: top center;
-    z-index: -1;
+    transform: translateX(-50%);
+    background: url('../assets/images/background-pattern-mobile.svg') top
+      center/cover no-repeat;
   }
 }
 
 /* stylelint-disable no-descending-specificity */
 main {
+  width: 100%;
+  max-width: utils.rem(600px);
+  margin-top: utils.rem(142px);
+  padding: 0 utils.rem(32px);
   background-color: variables.$color-white;
   border-radius: variables.$rem-base;
-  padding: 0 utils.rem(32px);
-  margin-top: utils.rem(142px);
-  max-width: utils.rem(600px);
-  width: 100%;
   box-shadow: 0 utils.rem(10px) utils.rem(30px) rgb(0 0 0 / 10%);
 }
 /* stylelint-enable */
 
-.accordion-container {
-  margin-bottom: utils.rem(28px);
-}
+// Accordion styles
+.accordion {
+  &-container {
+    margin-bottom: utils.rem(28px);
+  }
 
-.accordion-header {
-  display: flex;
-  align-items: center;
-  gap: utils.rem(16px);
-  margin-top: utils.rem(30px);
-  margin-bottom: utils.rem(28px);
+  &-header {
+    display: flex;
+    align-items: center;
+    gap: utils.rem(16px);
+    margin: utils.rem(30px) 0 utils.rem(28px);
+  }
+
+  &-title {
+    color: variables.$color-dark-purple;
+    font-size: utils.rem(27px);
+    font-weight: 700;
+    line-height: 1;
+  }
 }
 
 .icon-star {
@@ -89,67 +96,10 @@ main {
   height: utils.rem(18px);
 }
 
-.accordion-title {
-  color: variables.$color-dark-purple;
-  line-height: 1;
-  font-weight: 700;
-  font-size: utils.rem(27px);
-}
-
-.accordion-item-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  background: inherit;
-  border: none;
-  width: 100%;
-  padding: 0;
-  font-family: inherit;
-  padding-bottom: utils.rem(24px);
-
-  &:focus-visible {
-    outline: utils.rem(2px) solid variables.$color-dark-purple;
-    outline-offset: utils.rem(2px);
-    border-radius: utils.rem(4px);
-  }
-
-  &:focus,
-  &:active {
-    background-color: transparent;
-  }
-
-  .accordion-toggle-icon {
-    transform: rotate(0deg);
-  }
-}
-
-.accordion-item-heading {
-  color: variables.$color-dark-purple;
-  font-weight: 600;
-  line-height: 1.2;
-  text-align: left;
-  font-size: utils.rem(variables.$base-font-size);
-
-  &:hover {
-    color: variables.$color-pink;
-  }
-}
-
-.accordion-content {
-  color: variables.$color-grayish-purple;
-  line-height: 1.6;
-  visibility: hidden;
-  opacity: 0;
-  height: 0;
-  overflow: hidden;
-  font-size: utils.rem(14px);
-  font-weight: 400;
-}
-
+// Accordion items
 .accordion-item {
-  border-bottom: 1px solid variables.$color-light-pink;
   padding-top: utils.rem(24px);
+  border-bottom: 1px solid variables.$color-light-pink;
 
   &:first-child {
     padding-top: 0;
@@ -159,17 +109,68 @@ main {
     border-bottom: none;
   }
 
-  &.active {
-    .accordion-toggle-icon {
-      transform: rotate(-180deg);
+  &-header {
+    width: 100%;
+    display: flex;
+    gap: utils.rem(8px);
+    padding: 0 0 utils.rem(24px);
+    align-items: center;
+    justify-content: space-between;
+    font-family: inherit;
+    background: inherit;
+    border: none;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: utils.rem(2px) solid variables.$color-dark-purple;
+      outline-offset: utils.rem(2px);
+      border-radius: utils.rem(4px);
     }
 
-    .accordion-content {
-      visibility: visible;
-      opacity: 1;
-      height: auto;
-      margin-bottom: utils.rem(24px);
+    &:focus,
+    &:active {
+      background-color: transparent;
     }
+
+    .accordion-toggle-icon {
+      transform: rotate(0deg);
+    }
+  }
+
+  &-heading {
+    color: variables.$color-dark-purple;
+    font-size: utils.rem(variables.$base-font-size);
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: left;
+
+    &:hover {
+      color: variables.$color-pink;
+    }
+  }
+}
+
+.accordion-content {
+  height: 0;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hidden;
+  font-size: utils.rem(14px);
+  font-weight: 400;
+  line-height: 1.6;
+  color: variables.$color-grayish-purple;
+}
+
+.accordion-item.active {
+  .accordion-toggle-icon {
+    transform: rotate(-180deg);
+  }
+
+  .accordion-content {
+    height: auto;
+    visibility: visible;
+    opacity: 1;
+    margin-bottom: utils.rem(24px);
   }
 }
 
@@ -187,10 +188,7 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .accordion-item-header .accordion-toggle-icon {
-    transition: none;
-  }
-
+  .accordion-item-header .accordion-toggle-icon,
   .accordion-content {
     transition: none;
   }
@@ -224,18 +222,19 @@ main {
     margin-top: utils.rem(164px);
   }
 
-  .accordion-container {
-    margin-bottom: utils.rem(44px);
-  }
+  .accordion {
+    &-container {
+      margin-bottom: utils.rem(44px);
+    }
 
-  .accordion-title {
-    font-size: utils.rem(50px);
-  }
+    &-title {
+      font-size: utils.rem(50px);
+    }
 
-  .accordion-header {
-    margin-top: utils.rem(49px);
-    margin-bottom: utils.rem(40px);
-    gap: utils.rem(24px);
+    &-header {
+      margin: utils.rem(49px) 0 utils.rem(40px);
+      gap: utils.rem(24px);
+    }
   }
 
   .icon-star {
@@ -243,27 +242,27 @@ main {
     height: initial;
   }
 
-  .accordion-item {
-    padding-top: utils.rem(32px);
-  }
-
   .accordion-content {
     font-size: utils.rem(variables.$base-font-size);
   }
 
-  .accordion-item.active .accordion-content {
-    margin-bottom: utils.rem(32px);
-  }
+  .accordion-item {
+    padding-top: utils.rem(32px);
 
-  .accordion-item-header {
-    padding-bottom: utils.rem(32px);
+    &-header {
+      padding-bottom: utils.rem(32px);
 
-    &:last-child {
-      padding-bottom: 0;
+      &:last-child {
+        padding-bottom: 0;
+      }
     }
-  }
 
-  .accordion-item-heading {
-    font-size: utils.rem(18px);
+    &-heading {
+      font-size: utils.rem(18px);
+    }
+
+    &.active .accordion-content {
+      margin-bottom: utils.rem(32px);
+    }
   }
 }

@@ -6,115 +6,112 @@ import {
   addEventListenerWithErrorHandling,
 } from './utils.js';
 
-try {
-  const accordion = getElement('.accordion');
-  const accordionHeaders = getElements('.accordion-item-header');
+const accordion = getElement('.accordion');
+const accordionHeaders = getElements('.accordion-item-header');
+const accordionItems = getElements('.accordion-item');
 
-  const handleAccordionClick = (e) => {
-    const activeItem = e.target.closest('.accordion-item');
-    if (!activeItem) return;
-    toggleAccordion(activeItem);
-  };
+const plusIcon = new URL('../assets/images/icon-plus.svg', import.meta.url)
+  .href;
+const minusIcon = new URL('../assets/images/icon-minus.svg', import.meta.url)
+  .href;
 
-  addEventListenerWithErrorHandling(accordion, 'click', handleAccordionClick);
+const isTest = process.env.NODE_ENV === 'test';
 
-  const headerKeydownHandlers = new Map();
+function scheduleUpdate(callback) {
+  if (isTest) {
+    callback();
+  } else {
+    requestAnimationFrame(callback);
+  }
+}
 
-  const PLUS_ICON_URL = new URL(
-    '../assets/images/icon-plus.svg',
-    import.meta.url
-  ).href;
-  const MINUS_ICON_URL = new URL(
-    '../assets/images/icon-minus.svg',
-    import.meta.url
-  ).href;
+function handleKeydown(e, headers) {
+  const { key } = e;
+  const header = e.target;
+  const currentIndex = headers.indexOf(header);
 
-  accordionHeaders.forEach((header) => {
-    header.setAttribute('aria-expanded', 'false');
+  if (key === 'ArrowDown' || key === 'ArrowUp') {
+    e.preventDefault();
+    const nextIndex =
+      key === 'ArrowDown'
+        ? (currentIndex + 1) % headers.length
+        : (currentIndex - 1 + headers.length) % headers.length;
+    headers[nextIndex].focus();
+  } else if (key === 'Home') {
+    e.preventDefault();
+    headers[0].focus();
+  } else if (key === 'End') {
+    e.preventDefault();
+    headers[headers.length - 1].focus();
+  } else if (key === 'Enter' || key === ' ') {
+    e.preventDefault();
+    toggleAccordion(header.closest('.accordion-item'));
+  }
+}
 
-    const handleKeydown = (e) => {
-      const targetHeader = e.target;
-      const firstHeader = accordionHeaders[0];
-      const lastHeader = accordionHeaders[accordionHeaders.length - 1];
-      let nextHeader;
-      let prevHeader;
-      let item;
+function toggleAccordion(item) {
+  const isExpanding = !item.classList.contains('active');
+  const header = item.querySelector('.accordion-item-header');
+  const content = item.querySelector('.accordion-content');
+  const icon = header.querySelector('.accordion-toggle-icon');
 
-      switch (e.key) {
-        case 'ArrowDown':
-          e.preventDefault();
-          nextHeader =
-            accordionHeaders[accordionHeaders.indexOf(targetHeader) + 1] ||
-            firstHeader;
-          nextHeader.focus();
-          break;
-
-        case 'ArrowUp':
-          e.preventDefault();
-          prevHeader =
-            accordionHeaders[accordionHeaders.indexOf(targetHeader) - 1] ||
-            lastHeader;
-          prevHeader.focus();
-          break;
-
-        case 'Enter':
-        case ' ':
-          e.preventDefault();
-          item = targetHeader.closest('.accordion-item');
-          toggleAccordion(item);
-          break;
-      }
-    };
-
-    headerKeydownHandlers.set(header, handleKeydown);
-    header.addEventListener('keydown', handleKeydown);
+  accordionItems.forEach((activeItem) => {
+    if (activeItem !== item && activeItem.classList.contains('active')) {
+      const activeHeader = activeItem.querySelector('.accordion-item-header');
+      activeItem.classList.remove('active');
+      activeHeader.setAttribute('aria-expanded', 'false');
+      activeItem
+        .querySelector('.accordion-content')
+        .setAttribute('aria-hidden', 'true');
+      activeItem
+        .querySelector('.accordion-toggle-icon')
+        .setAttribute('src', plusIcon);
+    }
   });
 
-  function toggleAccordion(itemToActivate) {
-    const header = itemToActivate.querySelector('.accordion-item-header');
-    const content = itemToActivate.querySelector('.accordion-content');
-    const img = header.querySelector('.accordion-toggle-icon');
-    const isExpanding = !itemToActivate.classList.contains('active');
+  scheduleUpdate(() => {
+    item.classList.toggle('active', isExpanding);
+    header.setAttribute('aria-expanded', isExpanding);
+    content.setAttribute('aria-hidden', !isExpanding);
+    icon.setAttribute('src', isExpanding ? minusIcon : plusIcon);
+  });
+}
 
-    accordionHeaders.forEach((otherHeader) => {
-      const otherItem = otherHeader.closest('.accordion-item');
-      if (otherItem !== itemToActivate) {
-        otherItem.classList.remove('active');
-        otherHeader.setAttribute('aria-expanded', 'false');
-        otherItem
-          .querySelector('.accordion-content')
-          .setAttribute('aria-hidden', 'true');
-        otherItem
-          .querySelector('.accordion-toggle-icon')
-          .setAttribute('src', PLUS_ICON_URL);
+try {
+  const controller = new AbortController();
+  const { signal } = controller;
+
+  addEventListenerWithErrorHandling(
+    accordion,
+    'click',
+    (e) => {
+      const header = e.target.closest('.accordion-item-header');
+      if (header) {
+        toggleAccordion(header.closest('.accordion-item'));
       }
-    });
+    },
+    { signal }
+  );
 
-    if (isExpanding) {
-      itemToActivate.classList.add('active');
-      header.setAttribute('aria-expanded', 'true');
-      content.setAttribute('aria-hidden', 'false');
-      img.setAttribute('src', MINUS_ICON_URL);
-    } else {
-      itemToActivate.classList.remove('active');
-      header.setAttribute('aria-expanded', 'false');
-      content.setAttribute('aria-hidden', 'true');
-      img.setAttribute('src', PLUS_ICON_URL);
-    }
-  }
-
-  const cleanup = () => {
-    accordion.removeEventListener('click', handleAccordionClick);
-    accordionHeaders.forEach((header) => {
-      const keydownHandler = headerKeydownHandlers.get(header);
-      if (keydownHandler) {
-        header.removeEventListener('keydown', keydownHandler);
+  addEventListenerWithErrorHandling(
+    accordion,
+    'keydown',
+    (e) => {
+      const header = e.target.closest('.accordion-item-header');
+      if (header) {
+        handleKeydown(e, accordionHeaders);
       }
-    });
-    headerKeydownHandlers.clear();
-  };
+    },
+    { signal }
+  );
 
-  window.addEventListener('beforeunload', cleanup);
+  window.addEventListener(
+    'beforeunload',
+    () => {
+      controller.abort();
+    },
+    { signal }
+  );
 } catch (error) {
   console.error('Failed to initialize accordion:', error);
 }

@@ -2,7 +2,6 @@ export default {
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.(js|jsx)$': ['babel-jest', { configFile: './babel.config.js' }],
-    '^.+\\.svg$': '<rootDir>/src/svgTransform.js',
   },
   testEnvironmentOptions: {
     url: 'http://localhost',

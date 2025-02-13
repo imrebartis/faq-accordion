@@ -105,4 +105,26 @@ describe('FAQ Accordion', () => {
     expect(content.getAttribute('aria-hidden')).toBe('true');
     expect(header.getAttribute('aria-expanded')).toBe('false');
   });
+
+  test('keyboard navigation should work with ArrowUp and ArrowDown', () => {
+    const headers = document.querySelectorAll('.accordion-item-header');
+
+    fireEvent.keyDown(headers[0], { key: 'ArrowDown' });
+    expect(headers[1]).toHaveFocus();
+
+    fireEvent.keyDown(headers[1], { key: 'ArrowUp' });
+    expect(headers[0]).toHaveFocus();
+  });
+
+  test('keyboard navigation should work with Home and End', () => {
+    const headers = document.querySelectorAll('.accordion-item-header');
+
+    fireEvent.keyDown(headers[0], { key: 'End' });
+    expect(headers[0]).not.toHaveFocus();
+    expect(headers[1]).toHaveFocus();
+
+    fireEvent.keyDown(headers[1], { key: 'Home' });
+    expect(headers[1]).not.toHaveFocus();
+    expect(headers[0]).toHaveFocus();
+  });
 });
