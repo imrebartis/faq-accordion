@@ -229,7 +229,7 @@ main {
   margin-top: 2rem;
   font-size: 0.875rem;
   text-align: center;
-  color: hsl(292, 16%, 49%);
+  color: hsl(0, 0%, 0%);
 }
 .site-attribution a {
   color: hsl(292, 42%, 14%);
