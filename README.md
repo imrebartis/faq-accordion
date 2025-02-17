@@ -52,13 +52,13 @@ During this project, I gained experience in building an accessible and interacti
 ```html
 
 <!-- Semantic HTML structure with proper ARIA attributes -->
-<button class="accordion-item-header"
-        id="item1-header"
-        aria-expanded="false"
-        aria-controls="item1-content">
-  <h2 class="accordion-item-heading">What is Frontend Mentor, and how will it help me?</h2>
-  <img src="./src/assets/images/icon-plus.svg" class="accordion-toggle-icon" aria-hidden="true" alt="">
-</button>
+  <h2 class="accordion-item-header" id="item4-header" tabindex="0">
+    <span class="accordion-item-title">How can I get help if I'm stuck on a Frontend Mentor challenge?</span>
+    <button class="accordion-item-toggle-btn" aria-expanded="false" aria-controls="item4-content"
+      aria-labelledby="item4-header" tabindex="-1">
+      <img src="./src/assets/images/icon-plus.svg" class="accordion-toggle-icon" aria-hidden="true" alt="">
+    </button>
+  </h2>
 ```
 ```scss
 

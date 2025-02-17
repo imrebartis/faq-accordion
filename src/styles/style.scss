@@ -110,15 +110,15 @@ main {
   }
 
   &-header {
-    width: 100%;
     display: flex;
     gap: utils.rem(8px);
-    padding: 0 0 utils.rem(24px);
     align-items: center;
     justify-content: space-between;
-    font-family: inherit;
-    background: inherit;
-    border: none;
+    padding-bottom: utils.rem(24px);
+    color: variables.$color-dark-purple;
+    font-size: utils.rem(variables.$base-font-size);
+    font-weight: 600;
+    line-height: 1.2;
     cursor: pointer;
 
     &:focus-visible {
@@ -126,10 +126,17 @@ main {
       outline-offset: utils.rem(2px);
       border-radius: utils.rem(4px);
     }
+  }
 
-    &:focus,
-    &:active {
-      background-color: transparent;
+  &-toggle-btn {
+    flex-shrink: 0;
+    padding: utils.rem(4px);
+    background: inherit;
+    border: none;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: none;
     }
 
     .accordion-toggle-icon {
@@ -137,12 +144,8 @@ main {
     }
   }
 
-  &-heading {
-    color: variables.$color-dark-purple;
-    font-size: utils.rem(variables.$base-font-size);
-    font-weight: 600;
-    line-height: 1.2;
-    text-align: left;
+  &-title {
+    flex: 1;
 
     &:hover {
       color: variables.$color-pink;
@@ -250,15 +253,8 @@ main {
     padding-top: utils.rem(32px);
 
     &-header {
-      padding-bottom: utils.rem(32px);
-
-      &:last-child {
-        padding-bottom: 0;
-      }
-    }
-
-    &-heading {
       font-size: utils.rem(18px);
+      padding-bottom: utils.rem(32px);
     }
 
     &.active .accordion-content {

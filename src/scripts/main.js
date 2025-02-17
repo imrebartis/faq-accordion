@@ -51,15 +51,17 @@ function handleKeydown(e, headers) {
 
 function toggleAccordion(item) {
   const isExpanding = !item.classList.contains('active');
-  const header = item.querySelector('.accordion-item-header');
+  const toggleBtn = item.querySelector('.accordion-item-toggle-btn');
   const content = item.querySelector('.accordion-content');
-  const icon = header.querySelector('.accordion-toggle-icon');
+  const icon = toggleBtn.querySelector('.accordion-toggle-icon');
 
   accordionItems.forEach((activeItem) => {
     if (activeItem !== item && activeItem.classList.contains('active')) {
-      const activeHeader = activeItem.querySelector('.accordion-item-header');
+      const activeToggleBtn = activeItem.querySelector(
+        '.accordion-item-toggle-btn'
+      );
       activeItem.classList.remove('active');
-      activeHeader.setAttribute('aria-expanded', 'false');
+      activeToggleBtn.setAttribute('aria-expanded', 'false');
       activeItem
         .querySelector('.accordion-content')
         .setAttribute('aria-hidden', 'true');
@@ -71,7 +73,7 @@ function toggleAccordion(item) {
 
   scheduleUpdate(() => {
     item.classList.toggle('active', isExpanding);
-    header.setAttribute('aria-expanded', isExpanding);
+    toggleBtn.setAttribute('aria-expanded', isExpanding);
     content.setAttribute('aria-hidden', !isExpanding);
     icon.setAttribute('src', isExpanding ? minusIcon : plusIcon);
   });

@@ -156,15 +156,15 @@ main {
   border-bottom: none;
 }
 .accordion-item-header {
-  width: 100%;
   display: flex;
   gap: 0.5rem;
-  padding: 0 0 1.5rem;
   align-items: center;
   justify-content: space-between;
-  font-family: inherit;
-  background: inherit;
-  border: none;
+  padding-bottom: 1.5rem;
+  color: hsl(292, 42%, 14%);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
   cursor: pointer;
 }
 .accordion-item-header:focus-visible {
@@ -172,20 +172,23 @@ main {
   outline-offset: 0.125rem;
   border-radius: 0.25rem;
 }
-.accordion-item-header:focus, .accordion-item-header:active {
-  background-color: transparent;
+.accordion-item-toggle-btn {
+  flex-shrink: 0;
+  padding: 0.25rem;
+  background: inherit;
+  border: none;
+  cursor: pointer;
 }
-.accordion-item-header .accordion-toggle-icon {
+.accordion-item-toggle-btn:focus-visible {
+  outline: none;
+}
+.accordion-item-toggle-btn .accordion-toggle-icon {
   transform: rotate(0deg);
 }
-.accordion-item-heading {
-  color: hsl(292, 42%, 14%);
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.2;
-  text-align: left;
+.accordion-item-title {
+  flex: 1;
 }
-.accordion-item-heading:hover {
+.accordion-item-title:hover {
   color: hsl(290, 80%, 53%);
 }
 
@@ -269,13 +272,8 @@ main {
     padding-top: 2rem;
   }
   .accordion-item-header {
-    padding-bottom: 2rem;
-  }
-  .accordion-item-header:last-child {
-    padding-bottom: 0;
-  }
-  .accordion-item-heading {
     font-size: 1.125rem;
+    padding-bottom: 2rem;
   }
   .accordion-item.active .accordion-content {
     margin-bottom: 2rem;
